@@ -17,6 +17,7 @@ export default {
           DEFAULT: '#E2793A',
           dark: '#C7601F',
         },
+        
         whatsapp: '#25D366',
       },
             fontFamily: {
