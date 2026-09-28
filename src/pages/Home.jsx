@@ -3,7 +3,7 @@ import HorizontalShowcase from '../components/HorizontalShowcase';
 import Pillars from '../components/Pillars';
 import PromoGrid from '../components/PromoGrid';
 import StatsCTA from '../components/statsCTA';
-import Services from '../components/services';
+import Services from '../components/Services';
 
 export default function Home() {
   return (
