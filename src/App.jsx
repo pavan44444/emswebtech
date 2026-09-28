@@ -8,7 +8,9 @@ import ScrollProgress from './components/ScrollProgress';
 import Home from './pages/Home';
 import WhoWeAre from './pages/WhoWeAre';
 import Contact from './pages/Contact';
+import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
+import Industries from './pages/Industries';
 
 export default function App() {
   // Preloader only plays once per visit (not on every client-side route
@@ -28,6 +30,9 @@ export default function App() {
             <Route path="/who-we-are" element={<WhoWeAre />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/industries" element={<Industries />} />
+            <Route path="/services" element={<Services />} />
+
           </Routes>
         </main>
         <Footer />

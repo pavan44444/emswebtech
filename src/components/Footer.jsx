@@ -7,14 +7,14 @@ import { Blob } from './Shapes';
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/who-we-are', label: 'Who we are' },
-  { to: '/services/web-design-development', label: 'Services' },
+  { to: '/services', label: 'Services' },
   { to: '/contact', label: 'Contact' },
 ];
 
 const socials = [
   {
     label: 'X',
-    href: '#',
+    href: 'https://x.com/emswebtech',
     hover: {
       rotate: 90,
       transition: { duration: 0.3 },
@@ -23,7 +23,7 @@ const socials = [
   },
   {
     label: 'LinkedIn',
-    href: '#',
+    href: 'https://www.linkedin.com/in/emswebtech/',
     hover: {
       y: -7,
       transition: {
@@ -130,8 +130,28 @@ export default function Footer() {
           </h2>
         </div>
 
+        {/* Our services: all main services, 5 per row */}
+        <div className="pb-12 border-b border-paper/10">
+          <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-paper/40">
+            Our services
+          </h4>
+
+          <ul className="mt-5 grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-3 text-sm">
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  to={`/services/${s.slug}`}
+                  className="text-paper/60 hover:text-olive-light transition-colors"
+                >
+                  {s.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* Secondary info row */}
-        <div className="grid md:grid-cols-3 gap-10 pb-12 border-b border-paper/10">
+        <div className="grid md:grid-cols-2 gap-10 pt-12 pb-12 border-b border-paper/10">
           {/* Reach us */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-paper/40">
@@ -149,26 +169,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
-
-          {/* Our services */}
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-paper/40">
-              Our services
-            </h4>
-
-            <ul className="mt-4 space-y-1.5 text-sm">
-              {services.slice(0, 4).map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    to={`/services/${s.slug}`}
-                    className="text-paper/60 hover:text-paper transition-colors"
-                  >
-                    {s.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Find us */}
@@ -207,6 +207,8 @@ export default function Footer() {
               <motion.a
                 key={s.label}
                 href={s.href}
+                target={s.href !== '#' ? '_blank' : undefined}
+                rel="noopener noreferrer"
                 aria-label={s.label}
                 data-cursor
                 whileHover={s.hover}

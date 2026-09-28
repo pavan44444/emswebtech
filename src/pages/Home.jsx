@@ -3,6 +3,7 @@ import HorizontalShowcase from '../components/HorizontalShowcase';
 import Pillars from '../components/Pillars';
 import PromoGrid from '../components/PromoGrid';
 import StatsCTA from '../components/statsCTA';
+import Services from '../components/services';
 
 export default function Home() {
   return (
@@ -15,10 +16,12 @@ export default function Home() {
           online — focused on results, not just how a site looks.
         </p>
       </section>
-      <HorizontalShowcase />
+      <Services />
       <StatsCTA />
       <Pillars />
       <PromoGrid />
+
+
     </>
   );
 }

@@ -15,10 +15,10 @@ export default function Home() {
           online — focused on results, not just how a site looks.
         </p>
       </section>
-      <HorizontalShowcase />
       <StatsCTA />
       <Pillars />
       <PromoGrid />
+      <StatsCTA />
     </>
   );
 }

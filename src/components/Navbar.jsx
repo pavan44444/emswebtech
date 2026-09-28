@@ -21,6 +21,7 @@ export default function Navbar() {
   const navItems = [
     { to: '/', label: 'Home', end: true },
     { to: '/who-we-are', label: 'Who we are' },
+    { to: '/industries', label: 'Industry' },
     { to: '/contact', label: 'Contact us' },
   ];
 
@@ -94,7 +95,7 @@ export default function Navbar() {
                     transition={{ duration: 0.2 }}
                     className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72"
                   >
-                    <div className="bg-ink border border-paper/10 rounded-2xl shadow-glow p-2 grid grid-cols-1 gap-1">
+                    <div className="bg-ink border border-paper/10 rounded-2xl shadow-glow p-2 grid grid-cols-1 gap-1 max-h-[70vh] overflow-y-auto overscroll-contain">
                       {services.map((s, i) => (
                         <motion.div
                           key={s.slug}
@@ -118,13 +119,13 @@ export default function Navbar() {
           </nav>
 
 
-<div className="hidden md:flex items-center gap-3">
-  
-   <a href="tel:+919886633336"
-    className="text-sm font-medium px-4 py-2 rounded-full border border-paper/20 hover:border-paper/40 text-paper/80 hover:text-paper transition-colors">
-  
-    Call us
- </a> 
+          <div className="hidden md:flex items-center gap-3">
+
+            <a href="tel:+919886633336"
+              className="text-sm font-medium px-4 py-2 rounded-full border border-paper/20 hover:border-paper/40 text-paper/80 hover:text-paper transition-colors">
+
+              Call us
+            </a>
             <Link
               to="/contact"
               className="text-sm font-semibold px-4 py-2 rounded-full bg-olive text-ink hover:bg-olive-dark hover:shadow-glow transition-all"
