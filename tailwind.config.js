@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
@@ -17,10 +18,10 @@ export default {
           DEFAULT: '#E2793A',
           dark: '#C7601F',
         },
-        
+
         whatsapp: '#25D366',
       },
-            fontFamily: {
+      fontFamily: {
         display: ['Unbounded', 'sans-serif'],
         body: ['Manrope', 'sans-serif'],
         accent: ['Space Grotesk', 'sans-serif'],   // NEW — used for numerals/eyebrows
@@ -30,8 +31,9 @@ export default {
         glowOrange: '0 0 40px -8px rgba(226,121,58,0.5)',
       },
       fontFamily: {
-        display: ['Unbounded', 'sans-serif'],
-        body: ['Manrope', 'sans-serif'],
+        sans: ['Syne', 'sans-serif'],
+        display: ['Syne', 'sans-serif'],
+        body: ['Syne', 'sans-serif'],
       },
       borderRadius: {
         blob: '40% 60% 60% 40% / 40% 40% 60% 60%',

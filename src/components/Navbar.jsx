@@ -3,6 +3,18 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { services } from '../data/services';
 
+// Order of the menu: Home, What we do (dropdown), Industry, Who we are, Contact us
+const navItems = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/services', label: 'What we do', dropdown: true },
+  { to: '/industries', label: 'Industry' },
+  { to: '/who-we-are', label: 'Who we are' },
+  { to: '/contact', label: 'Contact us' },
+];
+
+// Only the first 7 services are shown in the menu
+const menuServices = services.slice(0, 7);
+
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -18,13 +30,6 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const navItems = [
-    { to: '/', label: 'Home', end: true },
-    { to: '/who-we-are', label: 'Who we are' },
-    { to: '/industries', label: 'Industry' },
-    { to: '/contact', label: 'Contact us' },
-  ];
-
   return (
     <>
       <motion.header
@@ -32,23 +37,73 @@ export default function Navbar() {
         animate={{ paddingTop: scrolled ? 10 : 20, paddingBottom: scrolled ? 10 : 20 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        <div className="mx-auto max-w-6xl px-6 flex items-center justify-between">
-          <Link to="/" className="group font-display text-xl font-semibold tracking-tight text-paper">
-            <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">
-              EMS
-            </span>{' '}
-            <span className="text-olive-light inline-block transition-transform duration-300 group-hover:translate-y-0.5">
-              Webtech
-            </span>
-            <motion.span
-              className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-orange align-middle"
-              animate={{ scale: [1, 1.4, 1] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+        <div className="mx-auto max-w-6xl px-6 flex items-center justify-between gap-6">
+          {/* Logo (image) */}
+          <Link
+            to="/"
+            className="shrink-0 rounded-lg bg-paper px-3 py-1.5"
+            aria-label="EMS Webtech home"
+          >
+            <img
+              src="/assets/images/logo.png"
+              alt="EMS Webtech"
+              style={{ height: 30, width: 'auto', display: 'block' }}
             />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => {
+              if (item.dropdown) {
+                return (
+                  <div
+                    key={item.to}
+                    className="relative"
+                    onMouseEnter={() => setDropdownOpen(true)}
+                    onMouseLeave={() => setDropdownOpen(false)}
+                  >
+                    <button className="text-sm font-medium text-paper/70 hover:text-paper flex items-center gap-1.5">
+                      {item.label}
+                      <motion.svg
+                        width="10" height="6" viewBox="0 0 10 6" className="fill-current"
+                        animate={{ rotate: dropdownOpen ? 180 : 0 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        <path d="M0 0L5 6L10 0Z" />
+                      </motion.svg>
+                    </button>
+                    <AnimatePresence>
+                      {dropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 8 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72"
+                        >
+                          <div className="bg-ink border border-paper/10 rounded-2xl shadow-glow p-2 grid grid-cols-1 gap-1">
+                            {menuServices.map((s, i) => (
+                              <motion.div
+                                key={s.slug}
+                                initial={{ opacity: 0, x: -8 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: i * 0.04 }}
+                              >
+                                <Link
+                                  to={`/services/${s.slug}`}
+                                  className="block px-3 py-2 rounded-xl text-sm text-paper/70 hover:bg-paper/5 hover:text-paper"
+                                >
+                                  {s.title}
+                                </Link>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              }
+
               const isActive = item.end
                 ? location.pathname === item.to
                 : location.pathname.startsWith(item.to);
@@ -70,60 +125,13 @@ export default function Navbar() {
                 </NavLink>
               );
             })}
-
-            <div
-              className="relative"
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-            >
-              <button className="text-sm font-medium text-paper/70 hover:text-paper flex items-center gap-1.5">
-                What we do
-                <motion.svg
-                  width="10" height="6" viewBox="0 0 10 6" className="fill-current"
-                  animate={{ rotate: dropdownOpen ? 180 : 0 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <path d="M0 0L5 6L10 0Z" />
-                </motion.svg>
-              </button>
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72"
-                  >
-                    <div className="bg-ink border border-paper/10 rounded-2xl shadow-glow p-2 grid grid-cols-1 gap-1 max-h-[70vh] overflow-y-auto overscroll-contain">
-                      {services.map((s, i) => (
-                        <motion.div
-                          key={s.slug}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.04 }}
-                        >
-                          <Link
-                            to={`/services/${s.slug}`}
-                            className="block px-3 py-2 rounded-xl text-sm text-paper/70 hover:bg-paper/5 hover:text-paper"
-                          >
-                            {s.title}
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </nav>
 
-
           <div className="hidden md:flex items-center gap-3">
-
-            <a href="tel:+919886633336"
-              className="text-sm font-medium px-4 py-2 rounded-full border border-paper/20 hover:border-paper/40 text-paper/80 hover:text-paper transition-colors">
-
+            <a
+              href="tel:+919886633336"
+              className="text-sm font-medium px-4 py-2 rounded-full border border-paper/20 hover:border-paper/40 text-paper/80 hover:text-paper transition-colors"
+            >
               Call us
             </a>
             <Link
@@ -168,38 +176,40 @@ export default function Navbar() {
             className="fixed inset-0 z-50 bg-ink md:hidden flex flex-col justify-center px-8"
           >
             <nav className="flex flex-col gap-2">
-              {[...navItems, { to: '/services', label: null }].filter((i) => i.label !== null).map((item, i) => (
-                <motion.div
-                  key={item.to}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, duration: 0.4, ease: 'easeOut' }}
-                >
-                  <Link
-                    to={item.to}
-                    onClick={() => setMobileOpen(false)}
-                    className="block font-display text-4xl font-semibold text-paper py-3 hover:text-olive-light transition-colors"
+              {navItems.map((item, i) => (
+                <div key={item.to}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.07, duration: 0.4, ease: 'easeOut' }}
                   >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={item.to}
+                      onClick={() => setMobileOpen(false)}
+                      className="block font-display text-4xl font-semibold text-paper py-3 hover:text-olive-light transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
 
-              {services.map((s, i) => (
-                <motion.div
-                  key={s.slug}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.05, duration: 0.4, ease: 'easeOut' }}
-                >
-                  <Link
-                    to={`/services/${s.slug}`}
-                    onClick={() => setMobileOpen(false)}
-                    className="block text-paper/50 text-lg py-1.5 hover:text-paper transition-colors"
-                  >
-                    {s.title}
-                  </Link>
-                </motion.div>
+                  {item.dropdown &&
+                    menuServices.map((s, j) => (
+                      <motion.div
+                        key={s.slug}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + j * 0.04, duration: 0.4, ease: 'easeOut' }}
+                      >
+                        <Link
+                          to={`/services/${s.slug}`}
+                          onClick={() => setMobileOpen(false)}
+                          className="block text-paper/50 text-lg py-1.5 hover:text-paper transition-colors"
+                        >
+                          {s.title}
+                        </Link>
+                      </motion.div>
+                    ))}
+                </div>
               ))}
             </nav>
           </motion.div>

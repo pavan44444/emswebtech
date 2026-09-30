@@ -72,13 +72,17 @@ export default function ServiceDetail() {
         <div className="svc-about">
           <h2>About this service</h2>
           <p>{service.body}</p>
+          {/* EDIT 1: extra paragraphs (optional field) */}
+          {service.paragraphs?.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
           <p className="svc-outcome">{service.outcome}</p>
         </div>
 
         <div className="svc-included">
           <h2>What's included</h2>
           <ul>
-            {service.features.map((f) => (
+            {service.features.slice(0, 5).map((f) => (
               <li key={f}>
                 <span className={`svc-dot color-${service.color}`} aria-hidden="true" />
                 {f}
@@ -87,6 +91,30 @@ export default function ServiceDetail() {
           </ul>
         </div>
       </section>
+
+      {/* EDIT 2: extra specialised sections (optional field) */}
+      {service.sections?.length > 0 && (
+        <section className="svc-wrap svc-sections">
+          <h2>More about {service.title}</h2>
+          <div className="svc-sections-grid">
+            {service.sections.map((sec) => (
+              <article key={sec.title} className="svc-section-card">
+                <h3>{sec.title}</h3>
+                <p>{sec.text}</p>
+                <ul>
+                  {sec.points.map((pt) => (
+                    <li key={pt}>
+                      <span className={`svc-dot color-${service.color}`} aria-hidden="true" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="svc-wrap svc-related">
         <h2>Our main services</h2>
         <div className="svc-grid">

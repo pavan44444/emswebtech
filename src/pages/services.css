@@ -602,3 +602,59 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* Append to the end of services.css */
+
+.svc-about p + p {
+  margin-top: 1rem;
+}
+
+.svc-sections {
+  padding-block: 2.5rem;
+}
+
+.svc-sections > h2 {
+  margin-bottom: 1.5rem;
+}
+
+.svc-sections-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.svc-section-card {
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.svc-section-card h3 {
+  margin: 0 0 0.75rem;
+}
+
+.svc-section-card > p {
+  margin: 0 0 1rem;
+  line-height: 1.7;
+}
+
+.svc-section-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.svc-section-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+@media (max-width: 800px) {
+  .svc-sections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+*, *::before, *::after { font-family: 'Unbounded', sans-serif !important; }
