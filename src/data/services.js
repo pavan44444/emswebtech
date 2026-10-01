@@ -970,14 +970,12 @@ export const getServiceBySlug = (slug) =>
 // Services shown in the navbar dropdown (in this order)
 export const menuSlugs = [
   'website-design-ui-ux',
-  'SEO-Ready Website Development',
+  'seo-ready-development',
   'cms-development',
   'ecommerce-development',
-  'Digital Marketing & Integration',
+  'internet-marketing',
   'branding',
-  // add / remove / reorder slugs here
 ];
-
 export const menuServices = menuSlugs
   .map((slug) => getServiceBySlug(slug))
   .filter(Boolean);
