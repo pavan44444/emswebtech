@@ -2,7 +2,7 @@ import Hero from '../components/Hero';
 import HorizontalShowcase from '../components/HorizontalShowcase';
 import Pillars from '../components/Pillars';
 import PromoGrid from '../components/PromoGrid';
-import StatsCTA from '../components/statsCTA';
+import StatsCTA from '../components/StatsCTA';
 import Services from '../components/Services';
 
 export default function Home() {

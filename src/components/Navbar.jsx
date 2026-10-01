@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { services } from '../data/services';
+import { menuServices } from '../data/services';
 
 // Order of the menu: Home, What we do (dropdown), Industry, Who we are, Contact us
 const navItems = [
@@ -13,7 +13,6 @@ const navItems = [
 ];
 
 // Only the first 7 services are shown in the menu
-const menuServices = services.slice(0, 7);
 
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -128,12 +127,7 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <a
-              href="tel:+919886633336"
-              className="text-sm font-medium px-4 py-2 rounded-full border border-paper/20 hover:border-paper/40 text-paper/80 hover:text-paper transition-colors"
-            >
-              Call us
-            </a>
+
             <Link
               to="/contact"
               className="text-sm font-semibold px-4 py-2 rounded-full bg-olive text-ink hover:bg-olive-dark hover:shadow-glow transition-all"
