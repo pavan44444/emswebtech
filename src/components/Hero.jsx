@@ -42,12 +42,12 @@ export default function Hero() {
           >
             Start a project
           </Link>
-          <a
+          {/* <a
             href="#showcase"
             className="px-6 py-3 rounded-full border border-paper/30 text-paper font-medium hover:border-paper/60 transition-colors"
           >
             See our work
-          </a>
+          </a> */}
         </div>
       </motion.div>
 
@@ -56,7 +56,7 @@ export default function Hero() {
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
       >
-        Scroll
+
       </motion.div>
     </section>
   );
