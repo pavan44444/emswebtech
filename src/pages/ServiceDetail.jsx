@@ -114,7 +114,7 @@ export default function ServiceDetail() {
           </div>
         </section>
       )}
-
+      {/* 
       <section className="svc-wrap svc-related">
         <h2>Our main services</h2>
         <div className="svc-grid">
@@ -139,7 +139,7 @@ export default function ServiceDetail() {
             </Link>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section className="svc-wrap">
         <div className="svc-pager">

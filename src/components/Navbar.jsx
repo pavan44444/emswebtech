@@ -12,11 +12,17 @@ const navItems = [
   { to: '/contact', label: 'Contact us' },
 ];
 
-// Only the first 7 services are shown in the menu
+// Remove duplicate services (same slug) so nothing repeats in the menus
+const uniqueServices = menuServices.filter(
+  (s, i, arr) => arr.findIndex((x) => x.slug === s.slug) === i
+);
 
+// Desktop dropdown: 3 columns x 4 services each (first 12 items)
+const columns = [0, 1, 2].map((c) => uniqueServices.slice(c * 5, c * 5 + 5));
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
@@ -28,6 +34,12 @@ export default function Navbar() {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
+
+  // Close menus when the route changes
+  useEffect(() => {
+    setMobileOpen(false);
+    setDropdownOpen(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -50,6 +62,7 @@ export default function Navbar() {
             />
           </Link>
 
+          {/* ---------- Desktop nav ---------- */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => {
               if (item.dropdown) {
@@ -73,27 +86,34 @@ export default function Navbar() {
                     <AnimatePresence>
                       {dropdownOpen && (
                         <motion.div
-                          initial={{ opacity: 0, y: 8 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 8 }}
+                          initial={{ opacity: 0, y: 8, x: '-50%' }}
+                          animate={{ opacity: 1, y: 0, x: '-50%' }}
+                          exit={{ opacity: 0, y: 8, x: '-50%' }}
                           transition={{ duration: 0.2 }}
-                          className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72"
+                          className="absolute left-1/2 top-full pt-3 w-[min(860px,92vw)]"
                         >
-                          <div className="bg-ink border border-paper/10 rounded-2xl shadow-glow p-2 grid grid-cols-1 gap-1">
-                            {menuServices.map((s, i) => (
-                              <motion.div
-                                key={s.slug}
-                                initial={{ opacity: 0, x: -8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.04 }}
+                          <div className="bg-ink border border-paper/10 rounded-2xl shadow-glow p-3 grid grid-cols-3 gap-3">
+                            {columns.map((col, ci) => (
+                              <div
+                                key={ci}
+                                className="rounded-xl bg-paper/5 border border-paper/10 p-2 flex flex-col gap-1"
                               >
-                                <Link
-                                  to={`/services/${s.slug}`}
-                                  className="block px-3 py-2 rounded-xl text-sm text-paper/70 hover:bg-paper/5 hover:text-paper"
-                                >
-                                  {s.title}
-                                </Link>
-                              </motion.div>
+                                {col.map((s, i) => (
+                                  <motion.div
+                                    key={s.slug}
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: (ci * 4 + i) * 0.03 }}
+                                  >
+                                    <Link
+                                      to={`/services/${s.slug}`}
+                                      className="block px-3 py-2.5 rounded-lg text-sm text-paper/70 hover:bg-paper/10 hover:text-paper transition-colors"
+                                    >
+                                      {s.title}
+                                    </Link>
+                                  </motion.div>
+                                ))}
+                              </div>
                             ))}
                           </div>
                         </motion.div>
@@ -127,7 +147,6 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-
             <Link
               to="/contact"
               className="text-sm font-semibold px-4 py-2 rounded-full bg-olive text-ink hover:bg-olive-dark hover:shadow-glow transition-all"
@@ -136,6 +155,7 @@ export default function Navbar() {
             </Link>
           </div>
 
+          {/* ---------- Mobile hamburger ---------- */}
           <button
             className="md:hidden relative z-[60] p-2 w-8 h-8 flex flex-col justify-center items-center gap-[5px]"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
@@ -160,6 +180,7 @@ export default function Navbar() {
         </div>
       </motion.header>
 
+      {/* ---------- Mobile menu (scrollable) ---------- */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -167,9 +188,9 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-ink md:hidden flex flex-col justify-center px-8"
+            className="fixed inset-0 z-40 bg-ink md:hidden overflow-y-auto overscroll-contain px-6 pt-24 pb-12"
           >
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1">
               {navItems.map((item, i) => (
                 <div key={item.to}>
                   <motion.div
@@ -177,34 +198,73 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.07, duration: 0.4, ease: 'easeOut' }}
                   >
-                    <Link
-                      to={item.to}
-                      onClick={() => setMobileOpen(false)}
-                      className="block font-display text-4xl font-semibold text-paper py-3 hover:text-olive-light transition-colors"
-                    >
-                      {item.label}
-                    </Link>
+                    {item.dropdown ? (
+                      <button
+                        onClick={() => setServicesOpen((v) => !v)}
+                        className="w-full flex items-center justify-between font-display text-3xl font-semibold text-paper py-3"
+                        aria-expanded={servicesOpen}
+                      >
+                        {item.label}
+                        <motion.svg
+                          width="14" height="8" viewBox="0 0 10 6" className="fill-current"
+                          animate={{ rotate: servicesOpen ? 180 : 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <path d="M0 0L5 6L10 0Z" />
+                        </motion.svg>
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.to}
+                        onClick={() => setMobileOpen(false)}
+                        className="block font-display text-3xl font-semibold text-paper py-3 hover:text-olive-light transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
                   </motion.div>
 
-                  {item.dropdown &&
-                    menuServices.map((s, j) => (
+                  <AnimatePresence initial={false}>
+                    {item.dropdown && servicesOpen && (
                       <motion.div
-                        key={s.slug}
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 + j * 0.04, duration: 0.4, ease: 'easeOut' }}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="overflow-hidden"
                       >
-                        <Link
-                          to={`/services/${s.slug}`}
-                          onClick={() => setMobileOpen(false)}
-                          className="block text-paper/50 text-lg py-1.5 hover:text-paper transition-colors"
-                        >
-                          {s.title}
-                        </Link>
+                        <div className="pl-2 pb-3 grid grid-cols-1 gap-0.5 border-l border-paper/10">
+                          {uniqueServices.map((s) => (
+                            <Link
+                              key={s.slug}
+                              to={`/services/${s.slug}`}
+                              onClick={() => setMobileOpen(false)}
+                              className="block text-paper/60 text-base py-2 pl-4 hover:text-paper transition-colors"
+                            >
+                              {s.title}
+                            </Link>
+                          ))}
+                          <Link
+                            to="/services"
+                            onClick={() => setMobileOpen(false)}
+                            className="block text-olive-light text-base py-2 pl-4"
+                          >
+                            View all services →
+                          </Link>
+                        </div>
                       </motion.div>
-                    ))}
+                    )}
+                  </AnimatePresence>
                 </div>
               ))}
+
+              <Link
+                to="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="mt-6 text-center text-base font-semibold px-6 py-3 rounded-full bg-olive text-ink"
+              >
+                Get a quote
+              </Link>
             </nav>
           </motion.div>
         )}

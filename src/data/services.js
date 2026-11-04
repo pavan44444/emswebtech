@@ -970,11 +970,19 @@ export const getServiceBySlug = (slug) =>
 // Services shown in the navbar dropdown (in this order)
 export const menuSlugs = [
   'website-design-ui-ux',
-  'seo-ready-development',
+  'web-design-development',
   'cms-development',
   'ecommerce-development',
+  'application-development',
+  'website-migration',
+  'website-security-performance',
+  'seo-ready-development',
+  'domain-hosting',
+  'website-maintenance-amc',
   'internet-marketing',
+  'ai-website-solutions',
   'branding',
+  'website-audit-consulting',
 ];
 export const menuServices = menuSlugs
   .map((slug) => getServiceBySlug(slug))
