@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import serviceSlides from "../data/ServiceSlides.js";
+import { serviceSlides } from "../data/ServiceSlides.js";
 
 export default function ServiceSlider({ service, interval = 5000 }) {
     const slides = serviceSlides[service.slug] ?? [];
