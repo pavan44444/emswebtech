@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { contactInfo } from '../data/promos';
@@ -21,6 +21,12 @@ export default function Contact() {
   const [params] = useSearchParams();
   const requested = params.get('tab');
   const [tab, setTab] = useState(tabs.some((t) => t.id === requested) ? requested : 'info');
+
+  useEffect(() => {
+    document.title = 'Contact | EMS Webtech';
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
 
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });

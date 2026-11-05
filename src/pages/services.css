@@ -1460,3 +1460,31 @@
         min-height: 300px;
     }
 }
+
+.svc-pager {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.svc-pager a {
+    display: inline-flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: unset;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.2;
+    text-decoration: none;
+    background-color: #84cc16;
+   
+}
+
+.svc-pager a span {
+    font-size: 13px;
+    margin: 0;
+    color: white;
+}

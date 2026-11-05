@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Blob, Circle, Triangle } from '../components/Shapes';
@@ -24,6 +25,11 @@ const points = [
 ];
 
 export default function WhoWeAre() {
+  useEffect(() => {
+    document.title = 'Who we are | EMS Webtech';
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   return (
     <>
       <section className="relative overflow-hidden">

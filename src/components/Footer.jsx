@@ -13,76 +13,31 @@ const navLinks = [
 
 const socials = [
   {
+    label: 'Facebook',
+    href: '#',
+    background: '#1877F2',
+    path: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z',
+  },
+  {
+    label: 'Instagram',
+    href: '#',
+    background:
+      'linear-gradient(45deg, #FEDA75 0%, #FA7E1E 25%, #D62976 50%, #962FBF 75%, #4F5BD5 100%)',
+    path: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z',
+  },
+  {
     label: 'X',
     href: 'https://x.com/emswebtech',
-    hover: {
-      rotate: 90,
-      transition: { duration: 0.3 },
-    },
-    color: 'white',
-    backgroundColor: '#000000',
-
+    background: '#000000',
     path: 'M18.24 2.5h3.3l-7.2 8.23L22.8 21.5h-6.63l-5.19-6.78-5.94 6.78H1.74l7.7-8.8L1.2 2.5h6.8l4.7 6.2 5.54-6.2Zm-1.16 17.02h1.83L6.9 4.38H4.95l12.13 15.14Z',
   },
   {
     label: 'LinkedIn',
     href: 'https://www.linkedin.com/in/emswebtech/',
-    hover: {
-      y: -7,
-      transition: {
-        type: 'spring',
-        stiffness: 400,
-        damping: 8,
-      },
-    },
-    backgroundColor: '#1877F2',
-    color: 'white',
-
+    background: '#0A66C2',
     path: 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM2.4 9.5h5.16V22H2.4V9.5Zm7.98 0h4.95v1.71h.07c.69-1.23 2.37-2.53 4.88-2.53 5.22 0 6.18 3.23 6.18 7.44V22h-5.16v-6.89c0-1.64-.03-3.75-2.36-3.75-2.37 0-2.73 1.77-2.73 3.63V22H10.4V9.5Z',
   },
 
-  {
-    label: 'YouTube',
-    href: '#',
-    hover: {
-      scale: 1.22,
-      transition: {
-        type: 'spring',
-        stiffness: 350,
-        damping: 10,
-      },
-    },
-    backgroundColor: '#FF0000',
-    color: 'white',
-    path: 'M22.5 7.2a3 3 0 0 0-2.11-2.13C18.6 4.6 12 4.6 12 4.6s-6.6 0-8.39.47A3 3 0 0 0 1.5 7.2 31 31 0 0 0 1 12.4a31 31 0 0 0 .5 5.2 3 3 0 0 0 2.11 2.13c1.79.47 8.39.47 8.39.47s6.6 0 8.39-.47a3 3 0 0 0 2.11-2.13 31 31 0 0 0 .5-5.2 31 31 0 0 0-.5-5.2ZM9.8 15.6V9.2l5.6 3.2-5.6 3.2Z',
-    fillRule: 'evenodd',
-  },
-  {
-    label: 'Facebook',
-    href: '#',
-    hover: {
-      rotate: [0, -14, 12, -8, 6, 0],
-      transition: { duration: 0.6 },
-    },
-    color: 'white',
-    backgroundColor: '#1877F2',
-    path: 'M14.5 22v-8.1h2.72l.41-3.16h-3.13V8.73c0-.92.25-1.54 1.57-1.54h1.68V4.36A22.6 22.6 0 0 0 15.24 4.2c-2.4 0-4.04 1.47-4.04 4.16v2.38H8.47v3.16h2.73V22h3.3Z',
-  },
-  {
-    label: 'Google',
-    href: '#',
-    hover: {
-      rotate: 360,
-      transition: {
-        duration: 0.7,
-        ease: 'easeInOut',
-      },
-    },
-    color: '#4285F4',
-
-    backgroundColor: 'white',
-    path: 'M21.6 12.23c0-.68-.06-1.36-.19-2H12v3.78h5.4a4.62 4.62 0 0 1-2 3.03v2.5h3.24c1.9-1.75 2.96-4.34 2.96-7.31Z M12 22c2.7 0 4.97-.89 6.63-2.42l-3.24-2.5c-.9.6-2.06.96-3.39.96-2.6 0-4.8-1.76-5.59-4.12H3.07v2.59A10 10 0 0 0 12 22Z M6.41 13.92a5.99 5.99 0 0 1 0-3.84V7.49H3.07a10 10 0 0 0 0 9.02l3.34-2.6Z M12 6.04c1.47 0 2.79.5 3.83 1.5l2.87-2.87A9.6 9.6 0 0 0 12 2a10 10 0 0 0-8.93 5.49l3.34 2.6c.79-2.37 2.99-4.05 5.59-4.05Z',
-  },
 ];
 
 export default function Footer() {
@@ -216,7 +171,7 @@ export default function Footer() {
             </a>
           </p>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-3">
             {socials.map((s) => (
               <motion.a
                 key={s.label}
@@ -225,18 +180,13 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={s.label}
                 data-cursor
-                whileHover={s.hover}
-                className="w-9 h-9 rounded-full border border-paper/15 flex items-center justify-center transition-colors"
-                style={{ backgroundColor: s.backgroundColor || 'transparent' }}
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                className="w-11 h-11 rounded-xl flex items-center justify-center shadow-md"
+                style={{ background: s.background }}
               >
-
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill={s.color}
-                  fillRule={s.fillRule}
-                >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
                   <path d={s.path} />
                 </svg>
               </motion.a>

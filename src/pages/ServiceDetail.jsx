@@ -145,11 +145,11 @@ export default function ServiceDetail() {
         <div className="svc-pager">
           <Link to={`/services/${prev.slug}`}>
             <small>Previous</small>
-            <span>{prev.title}</span>
+
           </Link>
           <Link to={`/services/${next.slug}`} className="svc-pager-next">
             <small>Next</small>
-            <span>{next.title}</span>
+
           </Link>
         </div>
       </section>
